@@ -1,0 +1,13 @@
+node_modules
+.turbo
+.next
+dist
+build
+*.env
+.env.local
+.env.production
+.env.staging
+*.log
+.DS_Store
+coverage
+prisma/migrations

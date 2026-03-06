@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - baliyonet
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.worker
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - baliyonet
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - baliyonet
+
+networks:
+  baliyonet:
+    driver: bridge
